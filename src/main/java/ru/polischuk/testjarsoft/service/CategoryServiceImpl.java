@@ -43,17 +43,13 @@ public class CategoryServiceImpl implements CategoryService{
     public String delete(Category category) {
 
         log.info("In CategoryServiceImpl delete{} ", category.getCategoryName());
-
         String result = checkingIfThereAreBanners(category);
-
         if(!result.isEmpty()){
            return result;
         }
-
         category.setDeleted(true);
         categoryRepository.save(category);
         return  result;
-
     }
 
     @Override
@@ -70,7 +66,7 @@ public class CategoryServiceImpl implements CategoryService{
             return chek.toString();
         }
         for(Banner banner:bannerList){
-            chek.append(banner.getId()).append(" ").append(banner.getName());
+            chek.append(banner.getId()).append(" ").append(banner.getName()).append(" ");
         }
             return chek.toString();
     }

@@ -13,7 +13,6 @@ import ru.polischuk.testjarsoft.service.CategoryService;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -26,8 +25,8 @@ public class CategoryRestControllerV1 {
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Category>> getAllCategory(){
-        List<Category> categories = this.categoryService.getAll().stream()
-                .filter(c-> !c.getDeleted()).collect(Collectors.toList());
+        List<Category> categories = categoryService.getAll();
+
         if(categories.isEmpty()){
              return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
          }
@@ -35,11 +34,13 @@ public class CategoryRestControllerV1 {
     }
 
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Optional<Category>> getCategory(@PathVariable("id") Long categoryId){
+    public ResponseEntity<Optional<Category>> getCategoryById(@PathVariable("id") Long categoryId){
+
         if(categoryId==null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Optional<Category> category = categoryService.getById(categoryId);
+
         if(!category.isPresent()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

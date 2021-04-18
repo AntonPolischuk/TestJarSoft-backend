@@ -2,6 +2,8 @@ package ru.polischuk.testjarsoft.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +38,7 @@ public class Banner {
     @DecimalMin(value = "0.00", message = "The price cannot be less than 0.00 ")
     @Setter(AccessLevel.PRIVATE)
     BigDecimal priceEntity;
+
 
     @Transient
     @Pattern(regexp = "^-?\\d+(.|,)?\\d{0,2}0*",
